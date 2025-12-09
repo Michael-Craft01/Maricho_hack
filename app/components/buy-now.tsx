@@ -1,9 +1,13 @@
 "use client"
 
+import { makePayment } from "@/lib/ecocash";
+
+
+
 function BuyNow({price}: {price: number}) {
 
     const handleOnClick = () => {
-        // Handle the buy now action here
+        makePayment("263774222475", price);
         console.log("Buy Now button clicked");
     }
   return (
