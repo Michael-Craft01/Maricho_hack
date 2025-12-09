@@ -9,7 +9,7 @@ function BuyNow({price}: {price: number}) {
     }
   return (
     <div>
-      <button className="buy-now-button" onClick={handleOnClick}>Buy Now</button>
+      <button className="buy-now-button text-white bg-black p-2 rounded-md" onClick={handleOnClick}>Buy Now</button>
     </div>
   )
 }
