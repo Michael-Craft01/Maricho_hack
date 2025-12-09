@@ -2,8 +2,7 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { auth } from "@/lib/firebase";
+import { useState } from "react";
 
 export default function Onboarding() {
     const { user, refreshUser } = useAuth();
