@@ -113,6 +113,7 @@ export default function SellerDashboard() {
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="hero-title text-3xl">Seller Dashboard</h1>
                     <div className="flex gap-4">
+                        <button onClick={() => router.push("/seller-dashboard/market")} className="tw-button">Market Pulse</button>
                         <button onClick={() => router.push("/profile")} className="tw-button-secondary">Profile</button>
                         <button onClick={handleLogout} className="tw-button-ghost bg-red-900/20 text-red-400 hover:bg-red-900/40">Logout</button>
                     </div>

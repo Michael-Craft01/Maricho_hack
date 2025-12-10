@@ -19,3 +19,21 @@ export interface Product {
     category: string;
     createdAt: Timestamp;
 }
+
+export interface Request {
+    id?: string;
+    buyerId: string;
+    title: string;
+    description: string;
+    imageBase64: string;
+    status: 'open' | 'fulfilled';
+    createdAt: Timestamp;
+}
+
+export interface RequestResponse {
+    id?: string;
+    supplierId: string;
+    supplierName: string;
+    message: string;
+    createdAt: Timestamp;
+}
