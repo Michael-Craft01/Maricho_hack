@@ -21,9 +21,6 @@ export const fileToBase64 = (file: File): Promise<string> => {
         const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.drawImage(img, 0, 0, width, height);
-          // Compress to JPEG with 0.7 quality to ensure size is manageable
-          // The requirement mentions keeping it under 800kb.
-          // 800px width with 0.7 quality usually yields much smaller than 800kb.
           const dataUrl = canvas.toDataURL("image/jpeg", 0.7);
           resolve(dataUrl);
         } else {
@@ -34,4 +31,16 @@ export const fileToBase64 = (file: File): Promise<string> => {
     };
     reader.onerror = (error) => reject(error);
   });
+};
+
+export const base64ToBlob = (base64: string): Blob => {
+  const arr = base64.split(',');
+  const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
 };
