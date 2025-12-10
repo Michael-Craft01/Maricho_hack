@@ -81,7 +81,7 @@ export default function Home() {
           <div className="mb-4">
               <h1 className="hero-title text-6xl md:text-7xl mb-2 text-[var(--color-primary)]">Maricho</h1>
               <p className="text-xl md:text-2xl font-light text-[var(--color-subtle-text)] tracking-wide">
-                  Fashion. Reimagined.
+                  Frictionless Verified Trade Network for the Zimbabwean Youths
               </p>
           </div>
 
