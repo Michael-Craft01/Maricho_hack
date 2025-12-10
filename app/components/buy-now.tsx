@@ -4,7 +4,7 @@ import { makePayment } from "@/lib/ecocash";
 
 function BuyNow({price}: {price: number}) {
     const handleOnClick = () => {
-        makePayment("263774222475", price);
+        makePayment("263785733582", price);
         console.log("Buy Now button clicked");
     }
   return (
