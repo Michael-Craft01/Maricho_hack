@@ -188,7 +188,7 @@ html, body {
   
   /* The image area */
   & .image-container {
-    @apply relative flex items-center justify-center p-8 bg-gradient-to-b from-[#202023] to-[#121212];
+    @apply relative flex items-center justify-center p-2 bg-gradient-to-b from-[#202023] to-[#121212];
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
   }

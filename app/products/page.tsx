@@ -91,7 +91,7 @@ function ProductItem({ product }: { product: Product }) {
                                 src={product.imageBase64}
                                 alt={product.name}
                                 fill
-                                className="object-contain p-4"
+                                className="object-contain p-0"
                             />
                         ) : (
                             <div className="w-full h-full flex items-center justify-center text-gray-500">No Image</div>
