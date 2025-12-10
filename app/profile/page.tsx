@@ -19,7 +19,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/auth/login"); // Redirect if not logged in
+      router.push("/"); // Redirect to landing if not logged in
     } else if (user) {
       // Fetch user profile
       const fetchProfile = async () => {
@@ -69,22 +69,28 @@ export default function ProfilePage() {
         photoBase64: currentImage || "",
       };
 
-      // Preserve role and createdAt if they exist, or set defaults if new doc
+      let userRole = 'buyer';
+
       if (docSnap.exists()) {
-         // Should we update role here? The prompt says "update displayName".
-         // Assuming role is handled elsewhere or immutable for now in this form.
-         // But we should preserve existing fields.
-         // Actually the prompt says "enforce these interfaces", so we should probably write what we have.
-         // However, role usually comes from registration.
-         // Let's assume we just update what we can.
-         // But setDoc with merge: true is safer.
+         const data = docSnap.data();
+         userRole = data.role || 'buyer';
       } else {
         updatedData.createdAt = Timestamp.now();
-        updatedData.role = 'buyer'; // Default if creating fresh, though ideally came from auth/onboarding
+        updatedData.role = userRole;
       }
 
       await setDoc(userRef, updatedData, { merge: true });
       setMessage("Profile updated successfully!");
+
+      // Redirect based on role after short delay
+      setTimeout(() => {
+          if (userRole === 'seller') {
+              router.push('/seller-dashboard');
+          } else {
+              router.push('/products');
+          }
+      }, 1000);
+
     } catch (error) {
       console.error("Error updating profile", error);
       setMessage("Failed to update profile.");
@@ -98,15 +104,15 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="hero-title mb-8 text-3xl">My Profile</h1>
+    <div className="max-w-2xl mx-auto p-6 min-h-screen flex flex-col justify-center">
+      <h1 className="hero-title mb-8 text-3xl text-center">Setup Profile</h1>
 
       <div className="tw-card mb-8">
         <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* Profile Picture Section */}
           <div className="flex flex-col items-center gap-4 mb-6">
-            <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[var(--color-primary)] relative bg-[var(--color-secondary)]">
+            <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[var(--color-primary)] relative bg-[var(--color-secondary)] shadow-[0_0_20px_rgba(255,214,10,0.2)]">
               {currentImage ? (
                 <Image
                   src={currentImage}
@@ -130,6 +136,7 @@ export default function ProfilePage() {
                 className="hidden"
               />
             </label>
+            {!currentImage && <p className="text-xs text-red-500">Profile photo required for virtual try-on.</p>}
           </div>
 
           {/* Display Name */}
@@ -160,11 +167,12 @@ export default function ProfilePage() {
           <div className="pt-4">
             <button
               type="submit"
-              disabled={saving}
+              disabled={saving || !currentImage}
               className="tw-button w-full"
             >
-              {saving ? "Saving..." : "Save Changes"}
+              {saving ? "Saving..." : "Save & Continue"}
             </button>
+            {!currentImage && <p className="text-center text-xs mt-2 text-[var(--color-subtle-text)]">Please upload a photo to continue.</p>}
           </div>
 
           {message && (
