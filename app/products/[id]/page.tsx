@@ -20,7 +20,22 @@ export default async function ProductPage({
 
         if (docSnap.exists) {
             const data = docSnap.data() as any;
-            product = { id: docSnap.id, ...data } as Product;
+
+            // Serialize Timestamp for Client Component
+            // Next.js cannot pass objects with methods (like Timestamp) to client components
+            let createdAt = data.createdAt;
+            if (createdAt && typeof createdAt.toDate === 'function') {
+                createdAt = createdAt.toDate().toISOString(); // Convert to string
+            } else if (createdAt && typeof createdAt === 'object' && '_seconds' in createdAt) {
+                 // Handle case where it might be a plain object with _seconds (unlikely with admin sdk but possible)
+                 createdAt = new Date(createdAt._seconds * 1000).toISOString();
+            }
+
+            product = {
+                id: docSnap.id,
+                ...data,
+                createdAt: createdAt as any // Cast to any to satisfy Product interface temporarily
+            } as Product;
         } else {
             notFound();
         }
