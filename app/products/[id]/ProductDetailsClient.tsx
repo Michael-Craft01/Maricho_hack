@@ -7,6 +7,7 @@ import { db } from "@/lib/firebase";
 import { Product } from "@/types/firestore";
 import Mirror from "@/app/components/mirror";
 import Image from "next/image";
+import BuyNow from "@/app/components/buy-now";
 
 export default function ProductDetailsClient({ product }: { product: Product }) {
     const { user } = useAuth();
@@ -101,9 +102,7 @@ export default function ProductDetailsClient({ product }: { product: Product }) 
                 </div>
 
                 <div className="pt-8 space-y-4">
-                    <button className="tw-button w-full text-lg shadow-[0_0_20px_rgba(255,214,10,0.4)]">
-                        Add to Cart
-                    </button>
+                    <BuyNow price={product.price} />
                     {!canTryOn && user && (
                         <a href="/profile" className="tw-button-secondary w-full text-center block">
                             Update Profile for Virtual Try-On

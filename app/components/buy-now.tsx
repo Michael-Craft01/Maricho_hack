@@ -8,9 +8,7 @@ function BuyNow({price}: {price: number}) {
         console.log("Buy Now button clicked");
     }
   return (
-    <div>
-      <button className="buy-now-button text-white bg-black p-2 rounded-md" onClick={handleOnClick}>Buy Now</button>
-    </div>
+      <button className="tw-button w-full text-lg shadow-[0_0_20px_rgba(255,214,10,0.4)]" onClick={handleOnClick}>Buy Now</button>
   )
 }
 
