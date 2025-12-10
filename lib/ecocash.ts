@@ -46,5 +46,6 @@ export async function makePayment(customerMsisdn: string, amount: number, reason
             sourceReference: sourceReference
         })
     })
-    return res.json();
+    alert("Payment initiated! Please check your phone.");
+    //return res.json();
 }
