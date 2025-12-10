@@ -45,3 +45,9 @@ export async function getAdminAuth() {
     const app = await initAdmin();
     return app.auth();
 }
+
+// Helper to get firestore instance directly
+export async function getAdminDb() {
+    const app = await initAdmin();
+    return app.firestore();
+}
